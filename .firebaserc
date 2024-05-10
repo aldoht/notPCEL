@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "notpcel": {
+      "hosting": {
+        "app": [
+          "notpcel"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "notpcel"
+  }
+}
