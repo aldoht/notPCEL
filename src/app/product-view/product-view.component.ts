@@ -19,29 +19,19 @@ export class ProductViewComponent  implements OnInit {
     photoURL: ""
   }
 
-/*
-  producto: ProductModel = {
-    id: "1",
-    name: "GPU NVIDIA RTX 3090",
-    description: "Tarjeta gráfica de gran poder",
-    unitPrice: "30,000",
-    photoURL: "https://m.media-amazon.com/images/I/61-7uGhZfQL._AC_UF894,1000_QL80_.jpg"
-  }
-*/
-
   @Input()
   public id: string = "";
 
   constructor(private service: ProductsService, private cd:ChangeDetectorRef) { }
 
   async ngOnInit() {
-    let dataSnapshot = (await this.service.find(this.id));
+    let dataSnapshot = (await this.service.findOne(this.id));
 
-    if (dataSnapshot.empty) {
+    if (!dataSnapshot.exists()) {
         return;
     }
 
-    this.producto = dataSnapshot.docs[0].data();
+    this.producto = dataSnapshot.data();
     this.cd.detectChanges();
   }
 

@@ -8,10 +8,9 @@ export interface ProductModel {
   photoURL: string;
 }
 
-export class ProductModelConverter implements FirestoreDataConverter<ProductModel, DocumentData> {
+export class ProductModelConverter implements FirestoreDataConverter<ProductModel> {
   public toFirestore(modelObject: WithFieldValue<ProductModel>): WithFieldValue<DocumentData> {
     return {
-      id: modelObject.id,
       name: modelObject.name,
       description: modelObject.description,
       unitPrice: modelObject.unitPrice,
@@ -20,28 +19,14 @@ export class ProductModelConverter implements FirestoreDataConverter<ProductMode
   }
 
 
-  public fromFirestore(snapshot: QueryDocumentSnapshot<DocumentData, DocumentData>, options?: SnapshotOptions | undefined): ProductModel {
+  public fromFirestore(snapshot: QueryDocumentSnapshot, options?: SnapshotOptions | undefined): ProductModel {
     let data = snapshot.data(options);
     return {
-        id: data['id'],
+        id: snapshot.id,
         name: data['name'],
         description: data['description'],
         unitPrice: data['unitPrice'],
         photoURL: data['photoURL']
     };
   }
-}
-
-export const productConverter = {
-  toFirestore: (model: ProductModel) => {
-    return {
-      id: model.id,
-      name: model.name,
-      description: model.description,
-      unitPrice: model.unitPrice,
-      photoURL: model.photoURL
-    };
-  }
-
-
 }
