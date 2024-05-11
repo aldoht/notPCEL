@@ -1,6 +1,11 @@
 .contcont {
   display: flex;
   flex-direction: column;
+
+  ion-searchbar {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
 }
 
 .container {
