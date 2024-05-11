@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserModel} from "../../models/user.model";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-user-header',
@@ -18,5 +19,9 @@ export class UserHeaderComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+
+  get isLoggedIn() {
+    return true;
+  }
 
 }

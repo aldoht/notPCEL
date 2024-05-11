@@ -1,5 +1,5 @@
-<div class="container">
-  <div class="user-info">
+<div class="container" >
+  <div class="user-info" *ngIf="isLoggedIn">
     <ion-avatar aria-hidden="true" slot="start">
       <img alt="" src={{usuario.photoUrl}} />
     </ion-avatar>
