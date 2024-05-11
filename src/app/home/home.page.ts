@@ -9,15 +9,8 @@ import {ProductModel} from "../../models/product.model";
 })
 export class HomePage implements OnInit {
 
-  private productIds: string[] = [];
+  constructor() { }
 
-  constructor(private productsService: ProductsService) { }
-
-  async ngOnInit() {
-    this.productIds = await this.productsService.findAllIds();
-  }
-
-  get ids() {
-    return this.productIds;
+  ngOnInit() {
   }
 }

@@ -11,28 +11,5 @@
   <ion-text>
     <h2>Productos</h2>
   </ion-text>
-  <ion-grid>
-    <ion-row class="ion-align-items-center">
-      <ion-col *ngFor="let product of ids">
-        <app-product-view [id]="product"></app-product-view>
-      </ion-col>
-    </ion-row>
-
-    <!--<ion-row class="ion-align-items-center">
-      <ion-col><app-product-view [id]="'1'"></app-product-view></ion-col>
-      <ion-col><app-product-view></app-product-view></ion-col>
-    </ion-row>
-    <ion-row class="ion-align-items-center">
-      <ion-col><app-product-view></app-product-view></ion-col>
-      <ion-col><app-product-view></app-product-view></ion-col>
-    </ion-row>
-    <ion-row class="ion-align-items-center">
-      <ion-col><app-product-view></app-product-view></ion-col>
-      <ion-col><app-product-view></app-product-view></ion-col>
-    </ion-row>
-    <ion-row class="ion-align-items-center">
-      <ion-col><app-product-view></app-product-view></ion-col>
-      <ion-col><app-product-view></app-product-view></ion-col>
-    </ion-row>-->
-  </ion-grid>
+  <app-products-grid></app-products-grid>
 </ion-content>
