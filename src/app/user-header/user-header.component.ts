@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserModel} from "../../models/user.model";
 import {AuthService} from "../auth.service";
 
@@ -7,7 +7,7 @@ import {AuthService} from "../auth.service";
   templateUrl: './user-header.component.html',
   styleUrls: ['./user-header.component.scss'],
 })
-export class UserHeaderComponent  implements OnInit {
+export class UserHeaderComponent implements OnInit {
   // Prueba
   usuario: UserModel = {
     id: "prueba",
@@ -16,12 +16,15 @@ export class UserHeaderComponent  implements OnInit {
     authUserId: "1"
   }
 
-  constructor() { }
+  constructor(private authService: AuthService) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   get isLoggedIn() {
-    return false;
+    return this.authService.isAuthenticated;
+   // return true;
   }
 
 }

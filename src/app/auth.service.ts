@@ -1,51 +1,34 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {UserModel} from "../models/user.model";
+import {Auth, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "@angular/fire/auth";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private afAuth: AngularFireAuth) {
+  constructor(private afAuth: Auth) {
   }
 
   signUp(email: string, password: string) {
-    this.afAuth.createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        // Sign up successful
-      })
-      .catch((error) => {
-        // An error occurred
-      });
+    return createUserWithEmailAndPassword(this.afAuth, email, password);
   }
 
   login(email: string, password: string) {
-    this.afAuth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        // Login successful
-      })
-      .catch((error) => {
-        // An error occurred
-      });
+    return signInWithEmailAndPassword(this.afAuth, email, password);
   }
 
   logout() {
-    this.afAuth.signOut()
-      .then(() => {
-        // Logout successful
-      })
-      .catch((error) => {
-        // An error occurred
-      });
+    return signOut(this.afAuth);
   }
 
   get isAuthenticated(): boolean {
-    return this.afAuth.currentUser !== null;
+    return getAuth().currentUser !== null;
   }
 
-  async user(): Promise<string | null> {
-    let authUser = await this.afAuth.currentUser;
+  user(): string | null {
+    let authUser = getAuth().currentUser;
 
     return authUser != null ? authUser.uid : null;
   }
