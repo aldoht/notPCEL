@@ -1,22 +1,20 @@
 <div class="contcont">
   <div class="container">
-    <div class="user-info" *ngIf="isLoggedIn">
+    <div class="user-info " *ngIf="isLoggedIn">
       <ion-avatar aria-hidden="true" slot="start">
-        <img alt="" src={{usuario.photoUrl}} />
+        <img alt="Profile Picture" src={{usuario.photoUrl}}/>
       </ion-avatar>
       <ion-label>Bienvenido, {{usuario.name}} </ion-label>
     </div>
 
-    <div *ngIf="!isLoggedIn">
-      <ion-searchbar color="secondary" animated="true" placeholder="Buscar"></ion-searchbar>
+    <div class="user-info " *ngIf="!isLoggedIn">
+      <ion-button>Inicia sesion o registrate...</ion-button>
     </div>
+
     <ion-button class="shoppingCart">
       <ion-icon name="cart"></ion-icon>
     </ion-button>
     <br>
   </div>
-
-  <div *ngIf="isLoggedIn">
-    <ion-searchbar color="secondary" animated="true" placeholder="Buscar"></ion-searchbar>
-  </div>
+  <ion-searchbar color="secondary" animated="true" placeholder="Buscar"></ion-searchbar>
 </div>

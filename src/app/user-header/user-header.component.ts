@@ -21,7 +21,7 @@ export class UserHeaderComponent  implements OnInit {
   ngOnInit() {}
 
   get isLoggedIn() {
-    return true;
+    return false;
   }
 
 }
