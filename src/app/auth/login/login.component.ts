@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
 
     }).catch(reason => {
       let message;
-      console.log(reason)
-
 
       switch (reason['code']) {
         case "auth/invalid-email":
