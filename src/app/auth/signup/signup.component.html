@@ -1,4 +1,13 @@
-<ion-input [(ngModel)]="usuario">usuario</ion-input>
-<ion-input [(ngModel)]="passwd">contrasena</ion-input>
-
-<ion-button (click)="generar()">registrarse</ion-button>
+<div class="main-container">
+  <div class="input-text">
+    <ion-text>
+      <h2>Crea tu cuenta</h2>
+      <small>¿Ya tienes una cuenta? <a [routerLink]="'/auth/login/'">Inicia sesión</a></small>
+    </ion-text>
+  </div>
+  <div class="input-container">
+    <ion-input [(ngModel)]="correo" label="Correo" labelPlacement="floating"></ion-input>
+    <ion-input [(ngModel)]="passwd" label="Contraseña" type="password" labelPlacement="floating"></ion-input>
+    <ion-button (click)="generar()" [disabled]="!correo || !passwd" >Crear cuenta</ion-button>
+  </div>
+</div>

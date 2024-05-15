@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../auth.service";
 import {NotificationsService} from "../../notifications.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,25 +10,29 @@ import {NotificationsService} from "../../notifications.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth: AuthService, private notService: NotificationsService) {
+  constructor(private auth: AuthService, private notService: NotificationsService, private router: Router) {
   }
 
-  public usuario: string = "";
+  public correo: string = "";
   public passwd: string = "";
 
   ngOnInit() {
   }
 
   generar() {
-    this.auth.login(this.usuario, this.passwd).then(value => {
-      this.notService.createNotification("Login exitoso", "#aabbcc", 1500);
-
+    this.auth.login(this.correo, this.passwd).then(value => {
+      this.notService.createNotification("Inicio de sesión exitoso", "success", 1500);
+      this.router.navigate(['/home/']);
     }).catch(reason => {
+      console.log(reason);
       let message;
 
       switch (reason['code']) {
         case "auth/invalid-email":
-          message = "Usuario no encontrado.";
+          message = "Correo no válido.";
+          break;
+        case "auth/invalid-credential":
+          message = "Las credenciales no son válidas.";
           break;
         case "auth/user-disabled":
           message = "Tu usuario ha sido deshabilitado."

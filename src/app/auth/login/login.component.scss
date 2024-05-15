@@ -1,0 +1,34 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+}
+
+.main-container > div {
+  width: 100%;
+}
+
+.input-text {
+  padding: 1rem;
+  color: #f2e8cf;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh;
+  gap: 2rem;
+}
+
+ion-input {
+  --background: #f2e8cf;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  width: 80%;
+  --border-radius: 2rem;
+  --border-width: 80%;
+}
