@@ -2,9 +2,9 @@
   <div class="container">
     <div class="user-info " *ngIf="isLoggedIn">
       <ion-avatar aria-hidden="true" slot="start">
-        <img alt="Profile Picture" src={{usuario.photoUrl}}/>
+        <img alt="Profile Picture" src={{user?.photoUrl}}/>
       </ion-avatar>
-      <ion-label>Bienvenido, {{usuario.name}} </ion-label>
+      <ion-label>Bienvenido, {{user?.name}} </ion-label>
     </div>
 
     <div class="user-info " *ngIf="!isLoggedIn">

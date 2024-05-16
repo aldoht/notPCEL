@@ -22,6 +22,14 @@ export class LoginComponent implements OnInit {
   generar() {
     this.auth.login(this.correo, this.passwd).then(value => {
       this.notService.createNotification("Inicio de sesión exitoso", "success", 1500);
+
+      if (value.user == null) {
+        this.router.navigate(['/auth/setup']);
+        return;
+      }
+
+      this.auth.updateUser(value.user);
+
       this.router.navigate(['/home/']);
     }).catch(reason => {
       console.log(reason);

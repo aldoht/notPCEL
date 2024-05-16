@@ -5,6 +5,8 @@ import {AuthPage} from './auth.page';
 import {LoginComponent} from "./login/login.component";
 import {SignupComponent} from "./signup/signup.component";
 import {MainComponent} from "./main/main.component";
+import {SetupComponent} from "./signup/setup/setup.component";
+import {setupGuard} from "../setup.guard";
 
 const routes: Routes = [
   {
@@ -18,6 +20,11 @@ const routes: Routes = [
       {
         path: 'signup',
         component: SignupComponent
+      },
+      {
+        path: 'setup',
+        component: SetupComponent,
+        canActivate: [setupGuard]
       },
       {
         path: '',

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {notSetupGuard} from "./setup.guard";
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [notSetupGuard],
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {

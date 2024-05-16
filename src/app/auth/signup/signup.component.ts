@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../auth.service";
-import { NotificationsService } from 'src/app/notifications.service';
-import { Router } from '@angular/router';
+import {NotificationsService} from 'src/app/notifications.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private auth: AuthService, private notService: NotificationsService, private router: Router) { }
+  constructor(private auth: AuthService, private notService: NotificationsService, private router: Router) {
+  }
 
   public correo: string = "";
   public passwd: string = "";
@@ -21,12 +22,21 @@ export class SignupComponent implements OnInit {
   generar() {
     this.auth.signUp(this.correo, this.passwd).then(value => {
       this.notService.createNotification("Se ha creado la cuenta exitosamente", "success", 1500);
+
+      if (value.user == null) {
+        this.router.navigate(['/auth/setup']);
+        return;
+      }
+
+      this.auth.updateUser(value.user);
+
+
       this.router.navigate(['/home/']);
     }).catch(reason => {
       console.log(reason)
       let message;
 
-      switch (reason['code']) {
+      switch (reason['reason']) {
         case "auth/invalid-email":
           message = "Correo no válido.";
           break;
