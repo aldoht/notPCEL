@@ -1,0 +1,22 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+ion-input {
+  --border-radius: 2rem;
+  --background: #f2e8cf;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  width: 90%;
+}
+
+h2 {
+  color: #f2e8cf;
+  font-weight: 500;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+}

@@ -1,0 +1,36 @@
+ion-toolbar {
+  --background: #a7c957;
+  --padding-bottom: 0.5rem;
+  --padding-top: 0.5rem;
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
+  gap: 2rem;
+  padding-bottom: 2rem;
+}
+
+ion-avatar {
+  width: 150px;
+  height: 150px;
+}
+
+ion-input {
+  --border-radius: 2rem;
+  --background: #f2e8cf;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  width: 90%;
+}
+
+.profile-opt {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}

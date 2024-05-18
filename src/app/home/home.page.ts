@@ -1,6 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
-import {ProductsService} from "../products.service";
-import {ProductModel} from "../../models/product.model";
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +6,11 @@ import {ProductModel} from "../../models/product.model";
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
 
   constructor() { }
 
