@@ -1,0 +1,32 @@
+h2, h3, h4 {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: end;
+  color: #f2e8cf;
+}
+
+ion-button {
+  color: #000;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+ion-input {
+  --border-radius: 2rem;
+  --background: #f2e8cf;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  width: 90%;
+  color: #000;
+}
+
+ion-toolbar {
+  --background: #a7c957;
+}

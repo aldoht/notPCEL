@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Carrito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card-content>
+    <ion-list>
+      <app-product-row></app-product-row>
+    </ion-list>
+  </ion-card-content>
+  <ion-text>
+    <h4>Subtotal: ${{subTotal}}</h4>
+    <h4>Envío: $50</h4>
+    <h3>Total: ${{subTotal+50}}</h3>
+  </ion-text>
+  <div class="inputContainer">
+    <h2>Información de envío</h2>
+    <ion-input [(ngModel)]="informacionEnvio.calle" required label="Calle" labelPlacement="floating"></ion-input>
+    <ion-input [(ngModel)]="informacionEnvio.colonia" required label="Colonia" labelPlacement="floating"></ion-input>
+    <ion-input [(ngModel)]="informacionEnvio.municipio" required label="Municipio" labelPlacement="floating"></ion-input>
+    <ion-input [(ngModel)]="informacionEnvio.estado" required label="Estado" labelPlacement="floating"></ion-input>
+    <ion-input [(ngModel)]="informacionEnvio.codigoPostal" required label="Código Postal" labelPlacement="floating"></ion-input>
+    <ion-button [disabled]="informacionEnvio.calle == '' || informacionEnvio.colonia == '' || informacionEnvio.municipio == '' || informacionEnvio.estado == '' || informacionEnvio.codigoPostal == ''" (click)="procesarEnvio()" >Ordenar</ion-button>
+  </div>
+</ion-content>

@@ -11,7 +11,7 @@
       <ion-button [routerLink]="'/auth/'">Inicia sesión o regístrate</ion-button>
     </div>
 
-    <ion-button class="shoppingCart">
+    <ion-button class="shoppingCart" (click)="sendToCart()">
       <ion-icon name="cart"></ion-icon>
     </ion-button>
     <br>

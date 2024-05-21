@@ -1,0 +1,11 @@
+<ion-item *ngFor="let producto of productosArray">
+  <ion-thumbnail slot="start">
+    <img alt="Product image" src="{{producto.photoURL}}" />
+  </ion-thumbnail>
+  <ion-label>{{producto.name}}</ion-label>
+  <ion-text>
+    <small>
+      {{producto.unitPrice}} x ${{producto.quantity}} = ${{producto.unitPrice*producto.quantity}}
+    </small>
+  </ion-text>
+</ion-item>

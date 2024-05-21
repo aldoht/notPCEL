@@ -13,10 +13,10 @@
       <figcaption><a href="">Cambiar foto</a></figcaption>
     </figure>
     <div class="profile-opt">
-      <ion-input label="Usuario" placeholder="Nuevo nombre de usuario"></ion-input>
-      <ion-input label="Correo" placeholder="Nuevo correo"></ion-input>
-      <ion-input label="Contraseña" placeholder="Nueva contraseña" type="password"></ion-input>
-      <ion-button>Aceptar cambios</ion-button>
+      <ion-input [(ngModel)]="infoUsuario.usuario" label="Usuario" placeholder="Nuevo nombre de usuario"></ion-input>
+      <ion-input [(ngModel)]="infoUsuario.correo" label="Correo" placeholder="Nuevo correo"></ion-input>
+      <ion-input [(ngModel)]="infoUsuario.passwd" label="Contraseña" placeholder="Nueva contraseña" type="password"></ion-input>
+      <ion-button [disabled]="infoUsuario.usuario == '' || infoUsuario.correo == '' || infoUsuario.passwd == ''" (click)="crearCambios()">Aceptar cambios</ion-button>
     </div>
   </div>
 </ion-content>
