@@ -12,6 +12,7 @@ import { UserHeaderComponent } from '../user-header/user-header.component';
 import { ProductViewComponent } from '../product-view/product-view.component';
 import {ProductsGridComponent} from "../products-grid/products-grid.component";
 import { AddProductComponent } from '../add-product/add-product.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { AddProductComponent } from '../add-product/add-product.component';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, UserHeaderComponent, ProductViewComponent, ProductsGridComponent, AddProductComponent]
+  declarations: [HomePage, UserHeaderComponent, ProductViewComponent, ProductsGridComponent, AddProductComponent, NotFoundComponent]
 })
 export class HomePageModule {}

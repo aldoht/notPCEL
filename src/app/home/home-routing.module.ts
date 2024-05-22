@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { CarritoPage } from '../carrito/carrito.page';
+import { NotFoundComponent } from '../not-found/not-found.component';
+import { ProductsPage } from '../products/products.page';
 
 const routes: Routes = [
   {
@@ -12,7 +14,20 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CarritoPage
+  },
+  {
+    path: 'products',
+    redirectTo: '404'
+  },
+  {
+    path: '404',
+    component: NotFoundComponent
+  },
+  {
+    path: 'products/:id',
+    component: ProductsPage
   }
+
 ];
 
 @NgModule({

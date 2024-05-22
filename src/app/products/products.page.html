@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Producto {{id}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="main-container">
+    <div class="image">
+      <img src="{{producto.photoURL}}" alt="A picture of the product">
+    </div>
+    <div class="info">
+      <h2>{{producto.name}}</h2>
+      <h4>${{producto.unitPrice}} por unidad</h4>
+      <p>{{producto.description}}</p>
+    </div>
+    <div class="btns">
+      <ion-button size="large" shape="round">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+      </ion-button>
+      <ion-select label="Cantidad" [(ngModel)]="producto.quantity">
+        <ion-select-option value="1">1</ion-select-option>
+        <ion-select-option value="2">2</ion-select-option>
+        <ion-select-option value="3">3</ion-select-option>
+        <ion-select-option value="4">4</ion-select-option>
+        <ion-select-option value="5">5</ion-select-option>
+      </ion-select>
+      <ion-button size="large" shape="round">
+        <ion-icon slot="icon-only" name="cart"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
