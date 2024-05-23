@@ -16,7 +16,7 @@ export class AddProductComponent implements OnInit {
     id: v4(),
     name: "",
     description: "",
-    unitPrice: "",
+    unitPrice: 0,
     photoURL: ""
   }
 
@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit {
       id: v4(),
       name: "",
       description: "",
-      unitPrice: "",
+      unitPrice: 0,
       photoURL: ""
     }
 

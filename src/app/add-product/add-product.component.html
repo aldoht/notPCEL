@@ -7,7 +7,7 @@
   <ion-input required labelPlacement="floating" [(ngModel)]="producto.unitPrice" label="Precio Unitario"></ion-input>
   <ion-input required labelPlacement="floating" [(ngModel)]="producto.photoURL" label="URL a Imagen" placeholder="Enlace a imagen del producto"></ion-input>
   <ion-button
-    [disabled]="producto.name == '' || producto.description == '' || producto.unitPrice == '' || producto.photoURL == ''"
+    [disabled]="producto.name == '' || producto.description == '' || producto.unitPrice == 0 || producto.photoURL == ''"
     (click)="cerrarModal()">
     Agregar Producto
   </ion-button>

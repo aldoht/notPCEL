@@ -15,7 +15,7 @@ export class ProductViewComponent  implements OnInit {
     id: "-1",
     name: "Product not Found",
     description: "N/A",
-    unitPrice: "-1",
+    unitPrice: 0,
     photoURL: ""
   }
 

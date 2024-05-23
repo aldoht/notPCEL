@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TotalService {
   subtotal: number = 0;
-  carritoArray: CartProduct[] = [
-  ]
+  carritoArray: CartProduct[] = []
 
   getArrayCarrito() {
     return this.carritoArray;
@@ -29,7 +28,8 @@ export class TotalService {
     }
   }
 
-  constructor() { }
+  constructor() {
+  }
 }
 
 export interface CartProduct {
@@ -38,4 +38,6 @@ export interface CartProduct {
   description: string,
   unitPrice: number,
   photoURL: string
+
+  get calculatePrice(): number;
 }

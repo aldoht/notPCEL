@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Router} from '@angular/router';
 import {ProductsService} from '../products.service';
-import {TotalService} from "../total.service";
+import {CartProduct, TotalService} from "../total.service";
 import {NotificationsService} from "../notifications.service";
 import {notSetupGuard} from "../setup.guard";
 import {FavoritesService} from "../favorites.service";
+import {query} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-products',
@@ -18,9 +19,9 @@ export class ProductsPage implements OnInit {
     id: "-1",
     name: "Gato RTX 4090 miau",
     description: "Es un gato NVIDIA",
-    unitPrice: "20",
+    unitPrice: 20,
     photoURL: "https://images.unsplash.com/photo-1529778873920-4da4926a72c2?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y3V0ZSUyMGNhdHxlbnwwfHwwfHx8MA%3D%3D",
-    quantity: "1"
+    quantity: 1
   };
 
   constructor(private route: ActivatedRoute,
@@ -42,7 +43,7 @@ export class ProductsPage implements OnInit {
 
     this.producto.name = dataSnapshot.data()?.name;
     this.producto.description = dataSnapshot.data()?.description;
-    this.producto.unitPrice = dataSnapshot.data()?.unitPrice;
+    this.producto.unitPrice = dataSnapshot.data()?.unitPrice || 0;
     this.producto.photoURL = dataSnapshot.data()?.photoURL;
   }
 
@@ -64,7 +65,12 @@ export class ProductsPage implements OnInit {
       description: this.producto.desc,
       name: this.producto.name,
       photoURL: this.producto.photoURL,
-      unitPrice: this.producto.unitPrice
+      unitPrice: this.producto.unitPrice,
+
+      get calculatePrice() {
+        console.log(this)
+        return this.unitPrice * this.quantity;
+      }
     })
 
     this.notService.createNotification("Agregado producto al carrito", "success", 1500)

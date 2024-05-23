@@ -4,7 +4,7 @@ export interface ProductModel {
   id: string;
   name: string;
   description: string;
-  unitPrice: string;
+  unitPrice: number;
   photoURL: string;
 }
 
