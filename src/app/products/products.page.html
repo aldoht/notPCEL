@@ -15,7 +15,7 @@
       <p>{{producto.description}}</p>
     </div>
     <div class="btns">
-      <ion-button size="large" shape="round">
+      <ion-button size="large" shape="round" (click)="addToFav()">
         <ion-icon slot="icon-only" name="heart"></ion-icon>
       </ion-button>
       <ion-select label="Cantidad" [(ngModel)]="producto.quantity">
@@ -25,7 +25,7 @@
         <ion-select-option value="4">4</ion-select-option>
         <ion-select-option value="5">5</ion-select-option>
       </ion-select>
-      <ion-button size="large" shape="round">
+      <ion-button size="large" shape="round" (click)="addToCart()">
         <ion-icon slot="icon-only" name="cart"></ion-icon>
       </ion-button>
     </div>

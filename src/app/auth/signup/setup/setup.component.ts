@@ -18,7 +18,9 @@ export class SetupComponent implements OnInit {
     name: "",
     authUserId: "",
     photoUrl: "",
-    id: "-1"
+    id: "-1",
+    favorites: new Set(),
+    role: 'USER'
   };
 
   constructor(private router: Router, private authService: AuthService, private userService: UsersService) {
@@ -45,7 +47,9 @@ export class SetupComponent implements OnInit {
         // @ts-ignore we know it isn't null lol.
         authUserId: this.authService.authUser().uid,
         name: this.authService.authUser()?.displayName || "",
-        photoUrl: this.authService.authUser()?.photoURL || ""
+        photoUrl: this.authService.authUser()?.photoURL || "",
+        favorites: new Set(),
+        role: 'USER'
       }
     })
   }

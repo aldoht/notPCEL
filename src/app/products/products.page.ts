@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { ProductsService } from '../products.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
+import {ProductsService} from '../products.service';
+import {TotalService} from "../total.service";
+import {NotificationsService} from "../notifications.service";
+import {notSetupGuard} from "../setup.guard";
+import {FavoritesService} from "../favorites.service";
 
 @Component({
   selector: 'app-products',
@@ -19,15 +23,17 @@ export class ProductsPage implements OnInit {
     quantity: "1"
   };
 
-  constructor(private route: ActivatedRoute, private router: Router, private service: ProductsService) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private service: ProductsService,
+              private cartService: TotalService,
+              private notService: NotificationsService,
+              private favService: FavoritesService) {
+  }
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') as string;
 
-    /** Conectar servicio de la base de datos
-     * para obtener información del producto según la id
-     * y llenar el objeto producto
-     */
     let dataSnapshot = (await this.service.findOne(this.id));
 
     if (!dataSnapshot.exists()) {
@@ -40,14 +46,32 @@ export class ProductsPage implements OnInit {
     this.producto.photoURL = dataSnapshot.data()?.photoURL;
   }
 
+  addToFav() {
+    if (this.alreadyFav) {
+      this.favService.removeFavorite(this.id)
+      this.notService.createNotification("Eliminado producto a la lista de favoritos", "danger", 1500)
 
-  /** Si se da click al botón de comprar, usar alguna
-   * función para añadirla al carrito del usuario
-   * según la cantidad especificada
-   */
+      return
+    }
 
-  /** Si se da click en favoritos, añadir a los favoritos
-   * del usuario mediante alguna función
-   */
+    this.favService.addFavorite(this.id)
+    this.notService.createNotification("Agregado producto a la lista de favoritos", "success", 1500)
+  }
 
+  addToCart() {
+    this.cartService.getArrayCarrito().push({
+      quantity: this.producto.quantity,
+      description: this.producto.desc,
+      name: this.producto.name,
+      photoURL: this.producto.photoURL,
+      unitPrice: this.producto.unitPrice
+    })
+
+    this.notService.createNotification("Agregado producto al carrito", "success", 1500)
+    this.router.navigate(["../"])
+  }
+
+  get alreadyFav() {
+    return this.favService.hasFavorite(this.id)
+  }
 }

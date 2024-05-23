@@ -5,35 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class TotalService {
   subtotal: number = 0;
-  carritoArray: any[] = [
-    {
-      quantity: "-1",
-      name: "NombreProducto",
-      description: "N/A",
-      unitPrice: "-1",
-      photoURL: "https://m.media-amazon.com/images/I/61-7uGhZfQL._AC_UF894,1000_QL80_.jpg"
-    },
-    {
-      quantity: "-1",
-      name: "NombreProducto",
-      description: "N/A",
-      unitPrice: "-1",
-      photoURL: "https://m.media-amazon.com/images/I/61-7uGhZfQL._AC_UF894,1000_QL80_.jpg"
-    },
-    {
-      quantity: "-1",
-      name: "NombreProducto",
-      description: "N/A",
-      unitPrice: "-1",
-      photoURL: "https://m.media-amazon.com/images/I/61-7uGhZfQL._AC_UF894,1000_QL80_.jpg"
-    },
-    {
-      quantity: "-1",
-      name: "NombreProducto",
-      description: "N/A",
-      unitPrice: "-1",
-      photoURL: "https://m.media-amazon.com/images/I/61-7uGhZfQL._AC_UF894,1000_QL80_.jpg"
-    }
+  carritoArray: CartProduct[] = [
   ]
 
   getArrayCarrito() {
@@ -58,4 +30,12 @@ export class TotalService {
   }
 
   constructor() { }
+}
+
+export interface CartProduct {
+  quantity: number,
+  name: string,
+  description: string,
+  unitPrice: number,
+  photoURL: string
 }

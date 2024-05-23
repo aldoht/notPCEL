@@ -15,8 +15,10 @@
     <div class="profile-opt">
       <ion-input [(ngModel)]="infoUsuario.usuario" label="Usuario" placeholder="Nuevo nombre de usuario"></ion-input>
       <ion-input [(ngModel)]="infoUsuario.correo" label="Correo" placeholder="Nuevo correo"></ion-input>
-      <ion-input [(ngModel)]="infoUsuario.passwd" label="Contraseña" placeholder="Nueva contraseña" type="password"></ion-input>
-      <ion-button [disabled]="infoUsuario.usuario == '' || infoUsuario.correo == '' || infoUsuario.passwd == ''" (click)="crearCambios()">Aceptar cambios</ion-button>
+      <ion-input [(ngModel)]="infoUsuario.newPasswd" label="Contraseña Nueva" placeholder="Nueva contraseña" type="password"></ion-input>
+      <br>
+      <ion-input [(ngModel)]="infoUsuario.passwd" label="Contraseña" placeholder="Contraseña actual" type="password"></ion-input>
+      <ion-button [disabled]="!allowChanges" (click)="crearCambios()">Aceptar cambios</ion-button>
     </div>
   </div>
 </ion-content>

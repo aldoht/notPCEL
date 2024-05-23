@@ -17,4 +17,7 @@ import { FavoritesPage } from './favorites.page';
   ],
   declarations: [FavoritesPage]
 })
-export class FavoritesPageModule {}
+export class FavoritesPageModule {
+
+
+}

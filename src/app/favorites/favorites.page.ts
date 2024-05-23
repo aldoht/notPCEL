@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../products.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ProductModel} from "../../models/product.model";
+import {FavoritesService} from "../favorites.service";
 
 @Component({
   selector: 'app-favorites',
@@ -9,23 +10,20 @@ import { Router } from '@angular/router';
 })
 export class FavoritesPage implements OnInit {
 
-  /** Hay que implementar el servicio para favoritos */
-  favoritosArray: any[] = [
-    {
-      id: 1,
-      quantity: "-1",
-      name: "NombreProducto",
-      description: "N/A",
-      unitPrice: "-1",
-      photoURL: "https://m.media-amazon.com/images/I/61-7uGhZfQL._AC_UF894,1000_QL80_.jpg"
-    }
-  ]
+  _favoritosArray: ProductModel[] = []
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private favoriteService: FavoritesService) {
+  }
 
-  ngOnInit() {  }
+  async ngOnInit() {
+    this._favoritosArray = await this.favoriteService.favorites();
+  }
 
   navigateToPage(productId: string) {
     this.router.navigate(['/home/products/', productId]);
+  }
+
+  get favoritosArray() {
+    return this._favoritosArray;
   }
 }

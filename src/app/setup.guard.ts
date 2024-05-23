@@ -7,10 +7,18 @@ export const notSetupGuard: CanActivateFn = (route, state) => {
   let router = inject(Router);
 
   if (service.ready) {
+    if (!service.isAuthenticated) {
+      return true;
+    }
+
     return service.shouldSetup ? router.navigate(["/auth/setup"]) : true;
   }
 
   return service.readyPromise().then(value => {
+    if (!service.isAuthenticated) {
+      return true;
+    }
+
     return service.shouldSetup ? router.navigate(["/auth/setup"]) : true;
   });
 };

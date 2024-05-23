@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,12 @@ export class HomePage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  get isSuperUser() {
+    return this.authService.user()?.role === "SUPERUSER"
   }
 }

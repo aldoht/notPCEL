@@ -4,7 +4,7 @@
     <h2>Productos</h2>
   </ion-text>
   <app-products-grid></app-products-grid>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="isSuperUser">
     <ion-fab-button color="primary" (click)="setOpen(true)">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

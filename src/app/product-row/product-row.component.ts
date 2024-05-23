@@ -1,5 +1,5 @@
 import { Component, OnInit, numberAttribute } from '@angular/core';
-import { TotalService } from '../total.service';
+import {CartProduct, TotalService} from '../total.service';
 
 @Component({
   selector: 'app-product-row',
@@ -7,7 +7,7 @@ import { TotalService } from '../total.service';
   styleUrls: ['./product-row.component.scss'],
 })
 export class ProductRowComponent  implements OnInit {
-  productosArray: any[];
+  productosArray: CartProduct[];
 
   constructor(private totService: TotalService) {
     this.productosArray = this.totService.getArrayCarrito();
