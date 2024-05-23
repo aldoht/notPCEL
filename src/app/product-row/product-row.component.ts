@@ -1,4 +1,4 @@
-import { Component, OnInit, numberAttribute } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {CartProduct, TotalService} from '../total.service';
 
 @Component({
@@ -7,11 +7,10 @@ import {CartProduct, TotalService} from '../total.service';
   styleUrls: ['./product-row.component.scss'],
 })
 export class ProductRowComponent  implements OnInit {
-  productosArray: CartProduct[];
+  @Output()
+  productosArray: CartProduct[] = [];
 
   constructor(private totService: TotalService) {
-    this.productosArray = this.totService.getArrayCarrito();
-    this.totService.setSubtotal(this.calculateTotal());
   }
 
   calculateTotal() {
@@ -22,6 +21,16 @@ export class ProductRowComponent  implements OnInit {
     return total;
   }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.productosArray = await this.totService.getCartProducts();
+    this.totService.setSubtotal(this.calculateTotal());
+  }
 
+  async get() {
+    return this.totService.getCartProducts();
+  }
+
+  async subtotal() {
+
+  }
 }

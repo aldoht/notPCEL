@@ -20,6 +20,7 @@ export class SetupComponent implements OnInit {
     photoUrl: "",
     id: "-1",
     favorites: new Set(),
+    cart: new Map(),
     role: 'USER'
   };
 
@@ -49,6 +50,7 @@ export class SetupComponent implements OnInit {
         name: this.authService.authUser()?.displayName || "",
         photoUrl: this.authService.authUser()?.photoURL || "",
         favorites: new Set(),
+        cart: new Map(),
         role: 'USER'
       }
     })

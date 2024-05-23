@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProductModel} from "../../models/product.model";
 import {FavoritesService} from "../favorites.service";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-favorites',
@@ -10,9 +11,14 @@ import {FavoritesService} from "../favorites.service";
 })
 export class FavoritesPage implements OnInit {
 
+  @Output()
   _favoritosArray: ProductModel[] = []
 
   constructor(private router: Router, private favoriteService: FavoritesService) {
+    interval(5000)
+      .subscribe(value => {
+        return this.favoritos()
+      })
   }
 
   async ngOnInit() {
@@ -25,5 +31,9 @@ export class FavoritesPage implements OnInit {
 
   get favoritosArray() {
     return this._favoritosArray;
+  }
+
+  async favoritos() {
+    return this.favoriteService.favorites();
   }
 }
