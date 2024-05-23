@@ -55,14 +55,12 @@ export class ProfilePage implements OnInit {
         }
       }).catch(reason => {
         this.notService.createNotification("Hubo un error al realizar tu cambio de correo", "error", 1000);
-        console.log(reason)
       });
     }
 
     if (this.infoUsuario.newPasswd !== "") {
       this.authService.updatePasswd(this.infoUsuario.newPasswd).catch(reason => {
         this.notService.createNotification("Hubo un error al realizar tu cambio de contraseña", "error", 1000);
-        console.log(reason)
       });
     }
 

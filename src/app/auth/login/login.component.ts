@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
       this.router.navigate(['/home/']);
     }).catch(reason => {
-      console.log(reason);
       let message;
 
       switch (reason['code']) {

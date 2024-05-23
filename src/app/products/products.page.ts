@@ -68,7 +68,6 @@ export class ProductsPage implements OnInit {
       unitPrice: this.producto.unitPrice,
 
       get calculatePrice() {
-        console.log(this)
         return this.unitPrice * this.quantity;
       }
     })

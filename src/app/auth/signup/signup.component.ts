@@ -33,7 +33,6 @@ export class SignupComponent implements OnInit {
 
       this.router.navigate(['/home/']);
     }).catch(reason => {
-      console.log(reason)
       let message;
 
       switch (reason['reason']) {
