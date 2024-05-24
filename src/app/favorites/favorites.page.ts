@@ -2,7 +2,6 @@ import {Component, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProductModel} from "../../models/product.model";
 import {FavoritesService} from "../favorites.service";
-import {from, interval, map, merge, mergeAll, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-favorites',

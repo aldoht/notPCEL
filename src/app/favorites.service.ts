@@ -3,7 +3,7 @@ import {AuthService} from "./auth.service";
 import {ProductModel} from "../models/product.model";
 import {ProductsService} from "./products.service";
 import {UsersService} from "./users.service";
-import {defer, Observable, Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
