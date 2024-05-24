@@ -2,7 +2,7 @@ import {Component, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProductModel} from "../../models/product.model";
 import {FavoritesService} from "../favorites.service";
-import {interval} from "rxjs";
+import {from, interval, map, merge, mergeAll, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-favorites',
@@ -15,10 +15,10 @@ export class FavoritesPage implements OnInit {
   _favoritosArray: ProductModel[] = []
 
   constructor(private router: Router, private favoriteService: FavoritesService) {
-    interval(5000)
-      .subscribe(value => {
-        return this.favoritos()
-      })
+    favoriteService.favoritesObs().subscribe(value => {
+      console.log("Updating...")
+      this._favoritosArray = value;
+    });
   }
 
   async ngOnInit() {
@@ -31,9 +31,5 @@ export class FavoritesPage implements OnInit {
 
   get favoritosArray() {
     return this._favoritosArray;
-  }
-
-  async favoritos() {
-    return this.favoriteService.favorites();
   }
 }
