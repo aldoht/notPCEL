@@ -10,7 +10,7 @@ import {Observable, Subject} from "rxjs";
 })
 export class FavoritesService {
 
-  private obsFavorites: Subject<ProductModel[]>;
+  private readonly obsFavorites: Subject<ProductModel[]>;
 
   constructor(private authService: AuthService, private productsService: ProductsService, private userService: UsersService) {
     this.obsFavorites = new Subject<ProductModel[]>()

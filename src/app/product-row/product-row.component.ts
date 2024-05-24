@@ -6,31 +6,24 @@ import {CartProduct, TotalService} from '../total.service';
   templateUrl: './product-row.component.html',
   styleUrls: ['./product-row.component.scss'],
 })
-export class ProductRowComponent  implements OnInit {
+export class ProductRowComponent implements OnInit {
   @Output()
   productosArray: CartProduct[] = [];
 
   constructor(private totService: TotalService) {
+    totService.cartProductsObs()
+      .subscribe(value => {
+        console.log("Updating...")
+        this.productosArray = value;
+      })
   }
 
   calculateTotal() {
-    let total = 0;
-    for (let product of this.productosArray) {
-      total += product.quantity * product.unitPrice;
-    }
-    return total;
+    return this.totService.calculateSubtotal(this.productosArray);
   }
 
   async ngOnInit() {
-    this.productosArray = await this.totService.getCartProducts();
-    this.totService.setSubtotal(this.calculateTotal());
-  }
-
-  async get() {
-    return this.totService.getCartProducts();
-  }
-
-  async subtotal() {
+    this.productosArray = await this.totService.cartProducts();
 
   }
 }

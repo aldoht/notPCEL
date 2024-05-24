@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { TotalService } from '../total.service';
-import { NotificationsService } from '../notifications.service';
-import { Router } from '@angular/router';
+import {Component, OnInit, Output} from '@angular/core';
+import {TotalService} from '../total.service';
+import {NotificationsService} from '../notifications.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -17,18 +17,25 @@ export class CarritoPage implements OnInit {
     codigoPostal: ""
   }
 
-  constructor(private totService: TotalService, private notService: NotificationsService, private router: Router) { }
+  constructor(private totService: TotalService, private notService: NotificationsService, private router: Router) {
+    totService.subtotalObs().subscribe(value => {
+      this.subTotal = value;
+    })
+  }
 
+  @Output()
   subTotal: number = 0;
 
   ngOnInit() {
-    this.subTotal = this.totService.getSubtotal();
+    this.totService.getSubtotal2().then(value => {
+      this.subTotal = value;
+    })
   }
 
   procesarEnvio() {
     this.notService.createNotification("Pedido enviado", "success", 1000);
     this.router.navigate(["/home/"]);
-    this.totService.limpiarCarrito();
+    this.totService.cleanCart()
     this.informacionEnvio = {
       calle: "",
       colonia: "",

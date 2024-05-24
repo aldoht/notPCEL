@@ -60,17 +60,16 @@ export class ProductsPage implements OnInit {
   }
 
   addToCart() {
-    this.cartService.getArrayCarrito().push({
-      quantity: this.producto.quantity,
-      description: this.producto.desc,
-      name: this.producto.name,
-      photoURL: this.producto.photoURL,
-      unitPrice: this.producto.unitPrice,
+    console.log("Cart button pressed")
 
-      get calculatePrice() {
-        return this.unitPrice * this.quantity;
-      }
-    })
+    if (this.alreadyInCart) {
+      this.cartService.removeFromCart(this.id)
+      this.notService.createNotification("Eliminado producto del carrito", "danger", 1500)
+
+      return
+    }
+
+    this.cartService.addToCart(this.id, this.producto.quantity);
 
     this.notService.createNotification("Agregado producto al carrito", "success", 1500)
     this.router.navigate(["../"])
@@ -78,5 +77,9 @@ export class ProductsPage implements OnInit {
 
   get alreadyFav() {
     return this.favService.hasFavorite(this.id)
+  }
+
+  get alreadyInCart() {
+    return this.cartService.isInCart(this.id)
   }
 }

@@ -3,27 +3,52 @@ import {ProductsService} from "./products.service";
 import {ProductModel} from "../models/product.model";
 import {AuthService} from "./auth.service";
 import {UsersService} from "./users.service";
+import {Observable, Subject} from "rxjs";
+import {car} from "ionicons/icons";
+import {query} from "@angular/fire/firestore";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TotalService {
-  subtotal: number = 0;
-  carritoArray: CartProduct[] = []
+  private readonly cartProductsObservable: Subject<CartProduct[]>;
+  private readonly subtotalObservable: Subject<number>;
 
   constructor(private authService: AuthService, private productsService: ProductsService, private userService: UsersService) {
+    this.cartProductsObservable = new Subject<CartProduct[]>();
+    this.subtotalObservable = new Subject<number>();
+
+    this.cartProductsObservable.subscribe(value => {
+      this.subtotalObservable.next(this.calculateSubtotal(value));
+    })
+
+    this.cartProducts().then(value => {
+      this.cartProductsObservable.next(value)
+    })
   }
 
-  async getCartProducts() : Promise<CartProduct[]> {
+  cartProductsObs(): Observable<CartProduct[]> {
+    return this.cartProductsObservable;
+  }
+
+  subtotalObs(): Observable<number> {
+    return this.subtotalObservable;
+  }
+
+  async cartProducts(): Promise<CartProduct[]> {
     let user = this.authService.user();
 
     if (user === null) {
       return [];
     }
 
+    return this.mapCart(user.cart)
+  }
+
+  private async mapCart(cart: Map<string, number>) {
     let cartProducts: CartProduct[] = [];
 
-    for (let [id, quantity] of user.cart.entries()) {
+    for (let [id, quantity] of cart.entries()) {
       let snapshot = await this.productsService.findOne(id);
 
       if (!snapshot.exists()) {
@@ -33,7 +58,7 @@ export class TotalService {
       cartProducts.push(new CartProductImpl(snapshot.data(), quantity))
     }
 
-    return cartProducts;
+    return cartProducts
   }
 
   cleanCart(): Promise<void> {
@@ -44,6 +69,11 @@ export class TotalService {
     }
 
     user.cart.clear();
+
+    console.log("Cart cleaned")
+    this.mapCart(user.cart).then(value => this.cartProductsObservable.next([]))
+
+
     this.authService.updateUser(user);
     return this.userService.save(user)
   }
@@ -55,7 +85,16 @@ export class TotalService {
       return new Promise<void>(resolve => resolve());
     }
 
-    user.cart.set(id, quantity);
+    let currValue = user.cart.get(id);
+    if (currValue !== undefined) {
+      user.cart.set(id, quantity + currValue);
+    } else {
+      user.cart.set(id, quantity);
+    }
+
+    console.log("Product added to cart")
+    this.mapCart(user.cart).then(value => this.cartProductsObservable.next(value))
+
     this.authService.updateUser(user);
     return this.userService.save(user)
   }
@@ -82,39 +121,33 @@ export class TotalService {
       user.cart.delete(id);
     }
 
+    console.log("Product removed from cart")
+    this.mapCart(user.cart).then(value => this.cartProductsObservable.next(value))
+
     this.authService.updateUser(user);
     return this.userService.save(user)
   }
 
-  async getSubtotal2(): Promise<number> {
-    return (await this.getCartProducts())
-      .map(value => value.quantity * value.unitPrice)
-      .filter(value => value !== null && value !== undefined)
+  calculateSubtotal(cartProducts: CartProduct[]) {
+    return cartProducts
+      .map(value => value.calculatePrice)
+      .filter(value => value !== null)
       .reduce((previousValue, currentValue) => previousValue + currentValue)
   }
 
-  getArrayCarrito() {
-    return this.carritoArray;
+  async getSubtotal2(): Promise<number> {
+    return this.calculateSubtotal((await this.cartProducts()))
   }
 
-  setSubtotal(subtotal: number) {
-    if (subtotal < 0)
-      return;
-    this.subtotal = subtotal;
-  }
+  isInCart(id: string) {
+    let user = this.authService.user();
 
-  getSubtotal() {
-    return this.subtotal;
-  }
-
-  limpiarCarrito() {
-    let size = this.carritoArray.length;
-    for (let I = 0; I < size; I++) {
-      this.carritoArray.pop();
+    if (user === null) {
+      return false;
     }
+
+    return user.cart.has(id);
   }
-
-
 }
 
 class CartProductImpl implements CartProduct {
@@ -125,10 +158,11 @@ class CartProductImpl implements CartProduct {
   unitPrice: number;
 
   get calculatePrice(): number {
-    return 0;
+    return this.quantity * this.unitPrice;
   }
 
   constructor(product: ProductModel, quantity: number) {
+    console.log(product)
     this.description = product.description
     this.name = product.name;
     this.photoURL = product.photoURL
