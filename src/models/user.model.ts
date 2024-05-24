@@ -31,7 +31,6 @@ export class UserModelConverter implements FirestoreDataConverter<UserModel> {
     };
   }
 
-
   public fromFirestore(snapshot: QueryDocumentSnapshot, options?: SnapshotOptions | undefined): UserModel {
     let data = snapshot.data(options);
 

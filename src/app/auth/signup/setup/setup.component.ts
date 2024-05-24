@@ -6,7 +6,7 @@ import {UserModel} from "../../../../models/user.model";
 import {v4} from "uuid";
 import {getAuth} from "@angular/fire/auth";
 import {UsersService} from "../../../users.service";
-import { FotoService } from 'src/app/foto.service';
+import {FotoService} from 'src/app/foto.service';
 
 @Component({
   selector: 'app-setup',
@@ -34,7 +34,10 @@ export class SetupComponent implements OnInit {
     if (photo.base64String != null) {
       this.user.photoUrl = "data:image/jpeg;charset=utf-8;base64," + photo.base64String
     }
+  }
 
+  get showURL() {
+    return this.user.photoUrl === "";
   }
 
   ngOnInit() {
