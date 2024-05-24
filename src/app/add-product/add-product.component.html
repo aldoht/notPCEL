@@ -2,10 +2,11 @@
   <h2>Información del producto</h2>
 </ion-text>
 <div class="input-container">
-  <ion-input required labelPlacement="floating" [(ngModel)]="producto.name" label="Nombre"></ion-input>
-  <ion-input required labelPlacement="floating" [(ngModel)]="producto.description" label="Descripción"></ion-input>
-  <ion-input required labelPlacement="floating" [(ngModel)]="producto.unitPrice" label="Precio Unitario"></ion-input>
-  <ion-input required labelPlacement="floating" [(ngModel)]="producto.photoURL" label="URL a Imagen" placeholder="Enlace a imagen del producto"></ion-input>
+  <ion-input required="true" labelPlacement="floating" [(ngModel)]="producto.name" label="Nombre"></ion-input>
+  <ion-input required="true" labelPlacement="floating" [(ngModel)]="producto.description" label="Descripción"></ion-input>
+  <ion-input required="true" labelPlacement="floating" [(ngModel)]="producto.unitPrice" label="Precio Unitario"></ion-input>
+  <ion-input labelPlacement="floating" [(ngModel)]="producto.photoURL" label="URL a Imagen" placeholder="Enlace a imagen del producto" *ngIf="showURL"></ion-input>
+  <ion-button (click)="takePhoto()">Tomar foto del producto</ion-button>
   <ion-button
     [disabled]="producto.name == '' || producto.description == '' || producto.unitPrice == 0 || producto.photoURL == ''"
     (click)="cerrarModal()">

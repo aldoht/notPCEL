@@ -13,7 +13,6 @@ export class ProductRowComponent implements OnInit {
   constructor(private totService: TotalService) {
     totService.cartProductsObs()
       .subscribe(value => {
-        console.log("Updating...")
         this.productosArray = value;
       })
   }

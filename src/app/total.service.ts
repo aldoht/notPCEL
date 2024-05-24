@@ -70,9 +70,7 @@ export class TotalService {
 
     user.cart.clear();
 
-    console.log("Cart cleaned")
     this.mapCart(user.cart).then(value => this.cartProductsObservable.next([]))
-
 
     this.authService.updateUser(user);
     return this.userService.save(user)
@@ -92,7 +90,6 @@ export class TotalService {
       user.cart.set(id, quantity);
     }
 
-    console.log("Product added to cart")
     this.mapCart(user.cart).then(value => this.cartProductsObservable.next(value))
 
     this.authService.updateUser(user);
@@ -121,7 +118,6 @@ export class TotalService {
       user.cart.delete(id);
     }
 
-    console.log("Product removed from cart")
     this.mapCart(user.cart).then(value => this.cartProductsObservable.next(value))
 
     this.authService.updateUser(user);
@@ -162,7 +158,6 @@ class CartProductImpl implements CartProduct {
   }
 
   constructor(product: ProductModel, quantity: number) {
-    console.log(product)
     this.description = product.description
     this.name = product.name;
     this.photoURL = product.photoURL

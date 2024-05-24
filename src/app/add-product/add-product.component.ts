@@ -4,6 +4,7 @@ import {ModalController} from "@ionic/angular";
 import {ProductsService} from "../products.service";
 import {NotificationsService} from "../notifications.service";
 import {v4} from "uuid";
+import {FotoService} from "../foto.service";
 
 @Component({
   selector: 'app-add-product',
@@ -20,9 +21,26 @@ export class AddProductComponent implements OnInit {
     photoURL: ""
   }
 
+  photoTaken: boolean = false;
+
   constructor(private modalController: ModalController,
               private productService: ProductsService,
-              private notificationService: NotificationsService) {
+              private notificationService: NotificationsService,
+              private photoService: FotoService) {
+  }
+
+  get showURL() {
+    return !this.photoTaken
+  }
+
+  async takePhoto() {
+    let photo = await this.photoService.takePhoto();
+
+    if (photo.base64String != null) {
+      this.producto.photoURL = "data:image/jpeg;charset=utf-8;base64," + photo.base64String
+      this.photoTaken = true;
+    }
+
   }
 
   cerrarModal() {

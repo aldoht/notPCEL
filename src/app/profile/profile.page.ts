@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {NotificationsService} from '../notifications.service';
 import {AuthService} from "../auth.service";
 import {UsersService} from "../users.service";
 import {updateEmail} from "@angular/fire/auth";
+import {FotoService} from "../foto.service";
+import {BehaviorSubject, Subject} from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -10,14 +12,17 @@ import {updateEmail} from "@angular/fire/auth";
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  @Output()
   infoUsuario: any = {
     usuario: "",
     correo: "",
     passwd: "",
-    newPasswd: ""
+    newPasswd: "",
+    photoURL: "https://ionicframework.com/docs/img/demos/avatar.svg"
   }
 
-  constructor(private notService: NotificationsService, private authService: AuthService, private userService: UsersService) {
+
+  constructor(private notService: NotificationsService, private authService: AuthService, private userService: UsersService, public photoService: FotoService) {
   }
 
   ngOnInit() {
@@ -28,11 +33,26 @@ export class ProfilePage implements OnInit {
       return false;
     }
 
-    if (this.infoUsuario.usuario !== "" || this.infoUsuario.correo !== "" || this.infoUsuario.newPasswd !== "") {
+    if (this.infoUsuario.usuario !== "" || this.infoUsuario.correo !== "" || this.infoUsuario.newPasswd !== "" || this.infoUsuario.photoURL !== "" && this.infoUsuario.photoURL !==
+      "https://ionicframework.com/docs/img/demos/avatar.svg"
+    ) {
       return true;
     }
 
     return false;
+  }
+
+  get photo(): Subject<string> {
+    return this.infoUsuario.photoURL === "" ? "https://ionicframework.com/docs/img/demos/avatar.svg" : this.infoUsuario.photoURL;
+  }
+
+  async takePhoto() {
+    let photo = await this.photoService.takePhoto();
+
+    if (photo.base64String != null) {
+      this.infoUsuario.photoURL = "data:image/jpeg;charset=utf-8;base64," + photo.base64String
+    }
+
   }
 
   crearCambios() {
@@ -42,13 +62,13 @@ export class ProfilePage implements OnInit {
       return
     }
 
-    if(this.infoUsuario.usuario !== "") {
+    if (this.infoUsuario.usuario !== "") {
       user.name = this.infoUsuario.usuario;
     }
 
     if (this.infoUsuario.correo !== "") {
       this.authService.updateMail(this.infoUsuario.correo).then(value => {
-        if(user !== null && this.authService.authUser() !== null) {
+        if (user !== null && this.authService.authUser() !== null) {
           // @ts-ignore
           user.authUserId = this.authService.authUser().uid
           this.userService.save(user);
@@ -64,6 +84,10 @@ export class ProfilePage implements OnInit {
       });
     }
 
+    if (this.infoUsuario.photoURL !== "" && this.infoUsuario.photoURL !== "https://ionicframework.com/docs/img/demos/avatar.svg") {
+      user.photoUrl = this.infoUsuario.photoURL;
+    }
+
     this.userService.save(user);
 
     this.notService.createNotification("Cambios hechos correctamente", "success", 1000);
@@ -71,7 +95,8 @@ export class ProfilePage implements OnInit {
       usuario: "",
       correo: "",
       passwd: "",
-      newPasswd: ""
+      newPasswd: "",
+      photoURL: "https://ionicframework.com/docs/img/demos/avatar.svg"
     }
   }
 

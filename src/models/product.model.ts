@@ -22,7 +22,6 @@ export class ProductModelConverter implements FirestoreDataConverter<ProductMode
   public fromFirestore(snapshot: QueryDocumentSnapshot, options?: SnapshotOptions | undefined): ProductModel {
     let data = snapshot.data(options);
 
-    console.log(data['unitPrice'])
     return {
         id: snapshot.id,
         name: data['name'],

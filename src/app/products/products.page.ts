@@ -60,8 +60,6 @@ export class ProductsPage implements OnInit {
   }
 
   addToCart() {
-    console.log("Cart button pressed")
-
     if (this.alreadyInCart) {
       this.cartService.removeFromCart(this.id)
       this.notService.createNotification("Eliminado producto del carrito", "danger", 1500)
