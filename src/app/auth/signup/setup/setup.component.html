@@ -1,6 +1,7 @@
 <ng-form>
-  <ion-input [(ngModel)]="user.name" name="name">Nombre</ion-input>
-  <ion-input [(ngModel)]="user.photoUrl" name="photoURL">URL de tu foto de perfil (a reemplazar)</ion-input>
+  <ion-input labelPlacement="floating" label="Nombre" [(ngModel)]="user.name" name="name"></ion-input>
+  <ion-input labelPlacement="floating" label="URL de tu foto de perfil (a reemplazar)" [(ngModel)]="user.photoUrl" name="photoURL"></ion-input>
 
-  <ion-button type="submit" (click)="submit()">Crear cuenta</ion-button>
+  <a (click)="this.takePhoto()">Tomar foto</a>
+  <ion-button [disabled]="user.name == '' || user.photoUrl == ''" type="submit" (click)="submit()">Crear cuenta</ion-button>
 </ng-form>

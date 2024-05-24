@@ -1,0 +1,19 @@
+ng-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh;
+  gap: 2rem;
+  width: 100%;
+  padding: 2rem;
+}
+
+ion-input {
+  --background: #f2e8cf;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  width: 80%;
+  --border-radius: 2rem;
+  --border-width: 80%;
+}

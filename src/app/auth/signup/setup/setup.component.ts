@@ -6,6 +6,7 @@ import {UserModel} from "../../../../models/user.model";
 import {v4} from "uuid";
 import {getAuth} from "@angular/fire/auth";
 import {UsersService} from "../../../users.service";
+import { FotoService } from 'src/app/foto.service';
 
 @Component({
   selector: 'app-setup',
@@ -24,7 +25,16 @@ export class SetupComponent implements OnInit {
     role: 'USER'
   };
 
-  constructor(private router: Router, private authService: AuthService, private userService: UsersService) {
+  constructor(private router: Router, private authService: AuthService, private userService: UsersService, private photoService: FotoService) {
+  }
+
+  async takePhoto() {
+    let photo = await this.photoService.takePhoto();
+
+    if (photo.base64String != null) {
+      this.user.photoUrl = "data:image/jpeg;charset=utf-8;base64," + photo.base64String
+    }
+
   }
 
   ngOnInit() {
